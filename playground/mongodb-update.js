@@ -24,7 +24,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp',(err, client)=>{
         $set: {name: "Almat"},
         $inc: {age: -1}
     }, {
-        returnOriginal: true
+        returnOriginal: false
     })
     //client.close();
 });
