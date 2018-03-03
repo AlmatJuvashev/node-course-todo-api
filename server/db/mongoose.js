@@ -1,7 +1,14 @@
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/TodoApp');
+
+
+let db = {
+    localhost: 'mongodb://localhost:27017/TodoApp',
+    mLab: process.env.MONGODB_URI
+}
+
+mongoose.connect(db.mLab || db.localhost);
 
 
 module.exports = {mongoose};
