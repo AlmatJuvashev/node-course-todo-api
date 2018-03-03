@@ -10,6 +10,7 @@ let {User} = require('./models/user');
 
 const app = express();
 
+
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
@@ -56,6 +57,28 @@ app.get('/todos/:id', (req, res) => {
     }, (e) => {
         res.status(400).send();
     });
+});
+
+app.delete('/todos/:id', (req, res) => {
+    // get the id
+
+    let id = req.params.id
+    //validate the id > not valid return 404
+    if (!ObjectId.isValid(id)) {
+        return res.status(404).send();
+    }
+
+    //remove todo by id
+    Todo.findByIdAndRemove(id).then((doc) => {
+        //success
+        //if no doc send 404
+        if (!doc) {
+            return res.status(404).send();
+        }
+        //send doc back with 200
+        res.status(200).send({doc});
+
+    }, (e) => res.status(404).send());
 
 });
 
